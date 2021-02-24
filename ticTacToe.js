@@ -4,7 +4,7 @@
 'use strict';
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
-let inputString = "", currLine = 0;
+let inputString = "";
 const config = require('./config.json');
 
 process.stdin.on('data',(chunk)=>{
@@ -18,13 +18,14 @@ process.stdin.on('end',()=>{
     main()
 });
 
-function readLine(){
-    return inputString[currLine++];
+function readLine(currLine){
+    return inputString[currLine];
 }
 
 function main() {
-    const player1 = readLine().split(' ')[1];
-    const player2 = readLine().split(' ')[1];
+    let currLine = 0;
+    const player1 = readLine(currLine++).split(' ')[1];
+    const player2 = readLine(currLine++).split(' ')[1];
     const moves = inputString.slice(2);
     play({player1,player2,moves});
 }
