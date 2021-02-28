@@ -1,30 +1,35 @@
 'use strict';
-process.stdin.resume();
-process.stdin.setEncoding('utf-8');
-let inputString = "", currLine = 0;
 const Play = require('./play');
+const inquirer = require('inquirer');
+const config = require('./config.json');
 console.log(" ======= Enter players name ======= ");
-process.stdin.on('data',(chunk)=>{
-    inputString+=chunk;
+const askPlayersName = config.pieces.map((p,i)=>{
+    return {
+        type:'input',
+        message: `player ${i+1} name :-`,
+        name:`player${i+1}`
+    }
 });
 
-process.stdin.on('end',()=>{
-    inputString = inputString.replace(/\s*$/, '')
-        .split('\n')
-        .map(str => str.replace(/\s*$/, ''));
-    main()
-});
 
-function readLine(){
-    return inputString[currLine++];
-}
-
-function main() {
-    const player1 = readLine();
-    const player2 = readLine();
-    const moves = inputString.slice(2);
+async function main() {
     const game = new Play.Game();
-    game.setPlayers(player1,player2);
-    const res =  game.makeMoves(moves);
-    console.log(res);
+    const names = await inquirer.prompt(askPlayersName);
+    game.setPlayers(names.player1,names.player2);
+    game.result = 'Game Over';
+    for(let i=0; i<config.gridSize**2;i++){
+        const move = await inquirer.prompt([{
+            type:'input',
+            name:'play',
+            message:' ----- enter your move -----'
+        }])
+        const res = game.makeMove(move.play);
+        if(res) {
+            game.result = res;
+            break;
+        }
+    }
+    console.log(game.result);
+    process.exit();
 }
+main();
