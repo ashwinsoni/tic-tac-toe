@@ -29,12 +29,6 @@ function main() {
     play({player1,player2,moves});
 }
 
-// const board = [
-//     ['A','-','-'],
-//     ['-','B','-'],
-//     ['-','-','C']
-// ]
-
 const board = [...Array(config.gridSize)].map(() => Array(config.gridSize).fill('-'))
 
 
