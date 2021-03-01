@@ -1,7 +1,7 @@
 # Tic tac toe in Node.js
 Tic tac toe is a board game where the two players play against each other. Generally a board has 3x3 grid where a player has to put "X" or "O" alternatively. One with the same symbol sequence in a row, column or in diagonal wins the game.
 
-Genenrally, a tic-tac-toe board is of 3x3 grid, but grid size has been defined in _**config.json**_ to make it of any size. So it can be extented easily to **NxN**__ grid size and also number of players are configurable from config itself.
+Genenrally, a tic-tac-toe board is of 3x3 grid, but grid size has been defined in _**config.json**_ to make it of any size. So it can be extented easily to **_NxN_** grid size and also number of players are configurable from config itself.
 
 This is the cli based nodejs project where commands have to be entered from terminal.
 To get the input from user, [_**inquirer**_](https://www.npmjs.com/package/inquirer) package has been used.
