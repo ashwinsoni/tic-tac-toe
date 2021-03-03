@@ -30,12 +30,6 @@ function main() {
     play({player1,player2,moves});
 }
 
-// const board = [
-//     ['A','-','-'],
-//     ['-','B','-'],
-//     ['-','-','C']
-// ]
-
 const board = [...Array(config.gridSize)].map(() => Array(config.gridSize).fill('-'))
 
 
@@ -74,7 +68,6 @@ const makeMove = (r,c,val) => {
     c--;
     if(r < board.length && c < board[0].length && board[r][c] === "-") {
         board[r][c] = val;
-        console.log(board,r,c);
         return true
     }
     return false;
