@@ -16,10 +16,11 @@ class Game{
         this.index = 0;
     }
 
-    setPlayers = (p1,p2) => {
+    setPlayers = (playersObj) => {
         this.players = {};
-        for(const p of this.pieces) {
-            this.players[p] = p1
+        const playersObjKeys = Object.keys(playersObj);
+        for(let i = 0; i < playersObjKeys.length; i++) {
+            this.players[this.pieces[i]] = playersObj[playersObjKeys[i]]
         }
     }
 

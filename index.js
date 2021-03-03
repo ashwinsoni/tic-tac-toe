@@ -15,7 +15,7 @@ const askPlayersName = config.pieces.map((p,i)=>{
 async function main() {
     const game = new Play.Game();
     const names = await inquirer.prompt(askPlayersName);
-    game.setPlayers(names.player1,names.player2);
+    game.setPlayers(names);
     game.result = 'Game Over';
     for(let i=0; i<config.gridSize**2;i++){
         const move = await inquirer.prompt([{
