@@ -19,11 +19,11 @@ async function main() {
     const playerName = game.getPlayers()
     game.result = 'Game Over';
     for(let i=0; i<config.gridSize**2;i++){
-        const currentPlayer = game.getCurrentPlayer()
+        const currentPlayerPiece = game.getCurrentPlayerPiece()
         const move = await inquirer.prompt([{
             type:'input',
             name:'play',
-            message:` ----- ${currentPlayer} turn :: enter your move ${playerName[currentPlayer]} -----`
+            message:` ----- ${currentPlayerPiece} turn :: enter your move ${playerName[currentPlayerPiece]} -----`
         }])
         const res = game.makeMove(move.play);
         if(res) {

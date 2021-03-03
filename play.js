@@ -26,7 +26,7 @@ class Game{
 
     getPlayers = () => this.players;
 
-    getCurrentPlayer = () => this.whoseTurn(this.index)
+    getCurrentPlayerPiece = () => this.whoseTurn(this.index)
 
     /** this function is not being used now*/
     makeMoves = (moves) => {
@@ -42,11 +42,11 @@ class Game{
                 console.log(`Invalid move`);
                 continue;
             }
-            const currPlayer = this.whoseTurn(index++)
-            this.board[r][c] = currPlayer
+            const currPlayerPiece = this.whoseTurn(index++)
+            this.board[r][c] = currPlayerPiece
             this.newBoard.printBoard()
-            if(this.checkWinner(currPlayer)) {
-                this.result = `${this.players[currPlayer]} won the game`;
+            if(this.checkWinner(currPlayerPiece)) {
+                this.result = `${this.players[currPlayerPiece]} won the game`;
                 break;
             }
             if(index>=this.pieces.length) index = 0;
@@ -64,11 +64,11 @@ class Game{
             console.log(`Invalid move`);
             return;
         }
-        const currPlayer = this.whoseTurn(this.index++)
-        this.board[r][c] = currPlayer
+        const currPlayerPiece = this.whoseTurn(this.index++)
+        this.board[r][c] = currPlayerPiece
         this.newBoard.printBoard()
-        if(this.checkWinner(currPlayer)) {
-            return `${this.players[currPlayer]} won the game`;
+        if(this.checkWinner(currPlayerPiece)) {
+            return `${currPlayerPiece} :: ${this.players[currPlayerPiece]} won the game`;
         }
         if(this.index>=this.pieces.length) this.index = 0;
         return;
