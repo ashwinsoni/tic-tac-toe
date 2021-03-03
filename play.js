@@ -24,6 +24,10 @@ class Game{
         }
     }
 
+    getPlayers = () => this.players;
+
+    getCurrentPlayer = () => this.whoseTurn(this.index)
+
     /** this function is not being used now*/
     makeMoves = (moves) => {
         let index = 0;
