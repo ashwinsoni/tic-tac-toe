@@ -90,6 +90,7 @@ class Game{
             }
             if(count === config.gridSize) return true;
         }
+        return false;
     }
 
     checkColumns = (currVal) => {
