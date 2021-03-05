@@ -28,32 +28,6 @@ class Game{
 
     getCurrentPlayerPiece = () => this.whoseTurn(this.index)
 
-    /** this function is not being used now*/
-    makeMoves = (moves) => {
-        let index = 0;
-        for(const m of moves) {
-            console.log("------------------------------------------------------")
-            const move = m.split(' ');
-            const r = parseInt(move[0])-1
-            const c = parseInt(move[1])-1;
-            if(r>this.board.length || r<0 ||
-                c>this.board[0].length || c<0 ||
-                this.board[r][c] !== "-") {
-                console.log(`Invalid move`);
-                continue;
-            }
-            const currPlayerPiece = this.whoseTurn(index++)
-            this.board[r][c] = currPlayerPiece
-            this.newBoard.printBoard()
-            if(this.checkWinner(currPlayerPiece)) {
-                this.result = `${this.players[currPlayerPiece]} won the game`;
-                break;
-            }
-            if(index>=this.pieces.length) index = 0;
-        }
-        return this.result;
-    }
-
     makeMove = (move) => {
         const m = move.split(' ');
         const r = parseInt(m[0])-1;
@@ -67,7 +41,7 @@ class Game{
         const currPlayerPiece = this.whoseTurn(this.index++)
         this.board[r][c] = currPlayerPiece
         this.newBoard.printBoard()
-        if(this.checkWinner(currPlayerPiece)) {
+        if(this.checkWinner(currPlayerPiece,r,c)) {
             return `${currPlayerPiece} :: ${this.players[currPlayerPiece]} won the game`;
         }
         if(this.index>=this.pieces.length) this.index = 0;
@@ -76,42 +50,38 @@ class Game{
 
     whoseTurn = (index) => this.pieces[index];
 
-    checkWinner = (currVal) => {
+    checkWinner = (currVal,row,col) => {
+        console.log(row,col);
         let won = false;
-        won = this.checkRows(currVal);
+        won = this.checkRows(currVal,row,col);
         if(won) return won;
-        won = this.checkColumns(currVal)
-        if(won) return won
-        won = this.checkDiagonals(currVal)
+        won = this.checkColumns(currVal,row,col)
+        if(won) return won        
+        if((row === col) || (row+col === config.gridSize-1)){
+            won = this.checkDiagonals(currVal,row,col)
+        }
         return won;
     }
 
-    checkRows = (currVal) => {
+    checkRows = (currVal,row,col) => {
+        let count = 0;
+        for(let j=0; j<config.gridSize;j++){
+            if(this.board[row][j] === currVal) count++
+        }
+        if(count === config.gridSize) return true;
+        return false;
+    }
+
+    checkColumns = (currVal,row,col) => {
+        let count=0;
         for(let i=0; i<config.gridSize; i++) {
-            let count = 0;
-            for(let j=0; j<config.gridSize; j++) {
-                if(this.board[i][j] === currVal) count++
-            }
-            if(count === config.gridSize) return true;
+            if(this.board[i][col] === currVal) count++;
         }
+        if(count === config.gridSize) return true;
         return false;
     }
 
-    checkColumns = (currVal) => {
-        let j=0;
-        while(j<config.gridSize){
-            let i = 0,count=0;
-            while(i<config.gridSize) {
-                if(this.board[i][j] === currVal) count++;
-                i++
-            }
-            if(count === config.gridSize) return true;
-            j++
-        }
-        return false;
-    }
-
-    checkDiagonals = (currVal) => {
+    checkDiagonals = (currVal,row,col) => {
         let count = 0, m=0, n=0;
         while(m<config.gridSize && n<config.gridSize) {
             if(this.board[m][n] === currVal) count++
